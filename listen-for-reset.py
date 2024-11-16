@@ -9,16 +9,9 @@ GPIO.wait_for_edge(4, GPIO.FALLING)
 
 # Simulate ESC key press using uinput
 try:
-    import uinput
-    
-    # Create uinput device with ESC key capability
-    device = uinput.Device([uinput.KEY_ESC])
-    
-    # Simulate ESC key press and release
-    device.emit_click(uinput.KEY_ESC)
-    
-except ImportError:
-    print("Please install python-uinput: sudo apt-get install python-uinput")
-    print("And load the uinput kernel module: sudo modprobe uinput")
+    # Use xdotool to simulate ESC key press
+    subprocess.call(['xdotool', 'key', 'Escape'])
+except FileNotFoundError:
+    print("Please install xdotool: sudo apt-get install xdotool")
 
 
