@@ -1,5 +1,6 @@
 #! /bin/sh
 
+
 set -e
 
 cd "$(dirname "$0")/.."
@@ -14,6 +15,17 @@ sudo chmod +x /etc/init.d/listen-for-shutdown.sh
 
 sudo update-rc.d listen-for-shutdown.sh defaults
 sudo /etc/init.d/listen-for-shutdown.sh start
+
+echo "=> Installing reset listener...\n"
+sudo cp listen-for-reset.py /usr/local/bin/
+sudo chmod +x /usr/local/bin/listen-for-reset.py
+
+echo "=> Starting reset listener...\n"
+sudo cp listen-for-reset.sh /etc/init.d/
+sudo chmod +x /etc/init.d/listen-for-reset.sh
+
+sudo update-rc.d listen-for-reset.sh defaults
+sudo /etc/init.d/listen-for-reset.sh start
 
 echo "Shutdown listener installed.\n"
 echo "Check out howchoo.com for more awesome Pi projects!"

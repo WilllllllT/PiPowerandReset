@@ -12,5 +12,14 @@ echo "=> Removing shutdown listener...\n"
 sudo rm -rf /usr/local/bin/listen-for-shutdown.py 
 sudo rm -rf /etc/init.d/listen-for-shutdown.sh 
 
+echo "=> Stopping reset listener...\n"
+sudo update-rc.d listen-for-reset.sh remove
+sudo /etc/init.d/listen-for-reset.sh stop
+
+echo "=> Removing reset listener...\n"
+sudo rm -rf /usr/local/bin/listen-for-reset.py 
+sudo rm -rf /etc/init.d/listen-for-reset.sh 
+
+
 echo "Shutdown listener uninstalled.\n"
 echo "Check out howchoo.com for more awesome Pi projects!"
