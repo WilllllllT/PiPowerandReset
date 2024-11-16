@@ -1,13 +1,26 @@
-#!/usr/bin/env python
-
+from time import sleep
+import os
 import RPi.GPIO as GPIO
-import subprocess
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.wait_for_edge(4, GPIO.FALLING)
+GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-# Reboot the system
-subprocess.call(['reboot'], shell=False)
+def exitEmulator(channel):
+    print('exitEmulator')
+    pids = [pid for pid in os.listdir('/proc') if pid.isdigit()]
+
+    for pid in pids:
+        try:
+            commandpath = open(os.path.join('/proc', pid, 'cmdline'), 'rb').read()
+            if commandpath[0:24] == '/opt/retropie/emulators/':
+                os.system('kill -QUIT %s' % pid)
+                print('kill -QUIT %s' % pid)
+        except IOError:
+            continue
+
+GPIO.add_event_detect(4, GPIO.RISING, callback=exitEmulator, bouncetime=500)
+
+while True:
+    sleep(3)
 
 
