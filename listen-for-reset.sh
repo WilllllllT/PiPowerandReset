@@ -2,5 +2,5 @@
 
 cd /
 cd /home/pi
-sudo python escape.py
+sudo python listen-for-reset.py
 cd /
