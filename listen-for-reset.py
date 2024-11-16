@@ -8,6 +8,6 @@ GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.wait_for_edge(4, GPIO.FALLING)
 
 # Reboot the system
-subprocess.call(['xdotool', 'key', 'Escape'], shell=False)
+subprocess.call(['reboot'], shell=False)
 
 
